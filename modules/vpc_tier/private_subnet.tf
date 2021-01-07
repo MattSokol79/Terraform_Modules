@@ -1,4 +1,4 @@
-# Create a private subnet
+# Creating the PRIVATE Subnet
 resource "aws_subnet" "private_subnet" {
   vpc_id     = aws_vpc.matt_vpc.id
   cidr_block = "174.28.2.0/24"
@@ -10,7 +10,7 @@ resource "aws_subnet" "private_subnet" {
 }
 
 
-# NACL PRIVATE. 
+# Creating the PRIVATE Network ACL 
 resource "aws_network_acl" "private_nacl" {
   vpc_id      = aws_vpc.matt_vpc.id
   subnet_ids = [aws_subnet.private_subnet.id]
@@ -56,7 +56,7 @@ resource "aws_network_acl" "private_nacl" {
   }
 }
 
-# ROUTES
+# Creating the Route Table for the Private Subnet
 resource "aws_route_table" "route_private_table"{
   vpc_id = aws_vpc.matt_vpc.id
 
@@ -71,6 +71,7 @@ resource "aws_route_table" "route_private_table"{
 
 }
 
+# Associating the Private Route Table to the Private Subnet
 resource "aws_route_table_association" "route_private_association"{
   route_table_id = aws_route_table.route_private_table.id
   subnet_id = aws_subnet.private_subnet.id

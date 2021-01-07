@@ -1,3 +1,6 @@
+# Variables used within the code needed to be specified but are provided
+# From other sources e.g. outputs
+
 variable "ami_app" {}
 
 variable "public_subnet_id" {}

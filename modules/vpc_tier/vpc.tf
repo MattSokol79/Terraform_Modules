@@ -1,4 +1,4 @@
-# Create a VPC
+# Creating the VPC with a specific CIDR_Block
 resource "aws_vpc" "matt_vpc" {
   cidr_block       = "174.28.0.0/16"
   instance_tenancy = "default"
@@ -8,7 +8,7 @@ resource "aws_vpc" "matt_vpc" {
   }
 }
 
-# IGW
+# Creation of the Internet Gateway 
 resource "aws_internet_gateway" "gw" {
   #reference vpc_id dynamically by:
   # calling the resource,

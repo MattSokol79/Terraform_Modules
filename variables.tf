@@ -1,8 +1,7 @@
-# research how to create variables in terraform to use in main.tf
-# use the variable instead of hard coding in main.tf
-
+# Below Variables are important in running the code
+# Supply the AMI Ids, region of the AWS, aws_key name as well as Instance Type
 variable "region" {
-default = "eu-west-1"
+    default = "eu-west-1"
 }
 
 variable "ami_app" {
@@ -14,10 +13,10 @@ variable "ami_db" {
 }
 
 variable "aws_key" {
-default = "eng74.matt.aws.key"
+    default = "eng74.matt.aws.key"
 }
 
 variable "instance_type" {
-default = "t2.micro"
+    default = "t2.micro"
 }
 

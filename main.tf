@@ -1,22 +1,25 @@
+# Module Used to obtain my IP address without specifying in file
 module myip {
   source  = "4ops/myip/http"
   version = "1.0.0"
 }
 
+# Region for the AWS 
 provider "aws" {
  region = var.region
 #access_key = "must not write the key here"
 #secert_key = "must not write the key here"
 }
 
-# Call the vpc modules
+# VPC Module Sets up the VPC including the Public and Private Subnets
+# Along with the Route Tables as well as the Internet Gateway
 module "vpc" {
     source = "./modules/vpc_tier"
 
     my_ip = module.myip.address
 }
 
-# Call the security groups module
+# SG Module sets up the security groups for the EC2 Instances
 module "sg" {
     source = "./modules/sg_tier"
 
@@ -24,7 +27,7 @@ module "sg" {
     my_ip = module.myip.address
 }
 
-# call the app module
+# App Module Sets up the App EC2 Instance 
 module "app" {
   source = "./modules/app_tier"
 
@@ -34,12 +37,14 @@ module "app" {
   db_host_ip = module.db.db_host_ip
   aws_key = var.aws_key
   app_sg_id = module.sg.app_sg_id
+
+  # User_Data depends on the DB being created first due to commands within
   depends_on = [
     module.db.aws_instance
   ]
 }
 
-# call the db module
+# DB Module Sets up the DB EC2 Instance
 module "db" {
   source = "./modules/db_tier"
 
