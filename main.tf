@@ -56,6 +56,16 @@ module "db" {
   
 }
 
+module "load_balancers" {
+  source = "./modules/load_balancer"
+
+  vpc_id = module.vpc.vpc_id
+  public_subnet_id = module.vpc.public_subnet_id
+  ami_app = var.ami_app
+  aws_key = var.aws_key
+  app_sg_id = module.sg.app_sg_id
+  db_host_ip = module.db.db_host_ip
+}
 
 
 
